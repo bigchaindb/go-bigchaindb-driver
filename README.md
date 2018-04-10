@@ -1,4 +1,6 @@
 # go-bigchaindb-driver
+
+[![Join the chat at https://gitter.im/go-bigchaindb-driver/Lobby](https://badges.gitter.im/go-bigchaindb-driver/Lobby.svg)](https://gitter.im/go-bigchaindb-driver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Official Go BigchainDB driver
 
 
