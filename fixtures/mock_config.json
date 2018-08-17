@@ -1,0 +1,7 @@
+{
+  "url": "example.bigchaindb.com",
+  "headers": {
+    "app_id": "APP_ID",
+    "app_key": "APP_KEY"
+  }
+}

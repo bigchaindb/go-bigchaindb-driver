@@ -1,0 +1,43 @@
+{
+  "asset": {
+    "data": {
+      "bicycle": {
+        "manufacturer": "bkfab",
+        "serial_number": "abcd1234"
+      }
+    }
+  },
+  "id": null,
+  "inputs": [
+    {
+      "fulfillment": {
+        "public_key": "GtMiC8DQ274d3wsW7R4MMNvMU6DLcd4U9vg43tu9fFTp",
+        "type": "ed25519-sha-256"
+      },
+      "fulfills": null,
+      "owners_before": [
+        "GtMiC8DQ274d3wsW7R4MMNvMU6DLcd4U9vg43tu9fFTp"
+      ]
+    }
+  ],
+  "metadata": {
+    "planet": "earth"
+  },
+  "operation": "CREATE",
+  "outputs": [
+    {
+      "amount": "1",
+      "condition": {
+        "details": {
+          "public_key": "GtMiC8DQ274d3wsW7R4MMNvMU6DLcd4U9vg43tu9fFTp",
+          "type": "ed25519-sha-256"
+        },
+        "uri": "ni:///sha-256;raKXoRoO8MhGqW0XqOWNUXoheQzS-0NLHvnWPpOcwIg?fpt=ed25519-sha-256&cost=131072"
+      },
+      "public_keys": [
+        "GtMiC8DQ274d3wsW7R4MMNvMU6DLcd4U9vg43tu9fFTp"
+      ]
+    }
+  ],
+  "version": "2.0"
+}
