@@ -1,4 +1,6 @@
 # go-bigchaindb-driver
+
+[![Join the chat at https://gitter.im/go-bigchaindb-driver/Lobby](https://badges.gitter.im/go-bigchaindb-driver/Lobby.svg)](https://gitter.im/go-bigchaindb-driver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Official Go BigchainDB driver
 
 This is an implementation of a BigchainDB client written in golang. It follows the requirements set out in [BEP-13](https://github.com/bigchaindb/BEPs/tree/master/13).
