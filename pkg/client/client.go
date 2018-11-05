@@ -2,13 +2,12 @@ package client
 
 import (
 	"net/http"
-
 	"net/url"
-
 	"fmt"
 
 	"github.com/bigchaindb/go-bigchaindb-driver/pkg/transaction"
 	"github.com/pkg/errors"
+	"strconv"
 )
 
 type Client struct {
@@ -20,13 +19,13 @@ type Client struct {
 // load config example in unchainio/pkg/xconfig
 func New(config ClientConfig) (*Client, error) {
 
-	url, err := url.Parse(config.Url)
+	u, err := url.Parse(config.Url)
 	if err != nil {
 		return nil, errors.Wrap(err, "Could not parse url from the config")
 	}
 
 	client := &Client{
-		baseURL:    url,
+		baseURL:    u,
 		httpClient: http.DefaultClient,
 		baseHeader: http.Header{},
 	}
@@ -189,7 +188,7 @@ func (c *Client) PostTransactionCommit(txn *transaction.Transaction) error {
 	return nil
 }
 
-// TODO add search string to request
+// if limit is -1, it will not add limit into query
 func (c *Client) SearchAsset(search string, limit int) ([]transaction.Asset, error) {
 	var assets []transaction.Asset
 
@@ -197,6 +196,13 @@ func (c *Client) SearchAsset(search string, limit int) ([]transaction.Asset, err
 	if err != nil {
 		return assets, errors.Wrap(err, "Could not create http request")
 	}
+
+	query := req.URL.Query()
+	query.Add("search", search)
+	if limit >= 0 {
+		query.Add("limit", strconv.Itoa(limit))
+	}
+	req.URL.RawQuery = query.Encode()
 
 	err = c.do(req, &assets)
 	if err != nil {
@@ -206,7 +212,7 @@ func (c *Client) SearchAsset(search string, limit int) ([]transaction.Asset, err
 	return assets, nil
 }
 
-// TODO add search string to request
+// if limit is -1, it will not add limit into query
 func (c *Client) SearchMetadata(search string, limit int) ([]transaction.Metadata, error) {
 	var metadatas []transaction.Metadata
 
@@ -214,6 +220,13 @@ func (c *Client) SearchMetadata(search string, limit int) ([]transaction.Metadat
 	if err != nil {
 		return metadatas, errors.Wrap(err, "Could not create http request")
 	}
+
+	query := req.URL.Query()
+	query.Add("search", search)
+	if limit >= 0 {
+		query.Add("limit", strconv.Itoa(limit))
+	}
+	req.URL.RawQuery = query.Encode()
 
 	err = c.do(req, &metadatas)
 	if err != nil {
