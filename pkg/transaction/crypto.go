@@ -7,9 +7,10 @@ import (
 	"strings"
 
 	"github.com/go-interledger/cryptoconditions"
-	"github.com/mr-tron/base58/base58"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/ed25519"
+	"golang.org/x/crypto/sha3"
+	"github.com/kalaspuffar/base64url"
 )
 
 type KeyPair struct {
@@ -71,9 +72,13 @@ func (t *Transaction) Sign(keyPairs []*KeyPair) error {
 
 		bytes_to_sign := []byte(serializedTxn.String())
 
+		h3_256 := sha3.New256()
+		h3_256.Write(bytes_to_sign)
+		h3_256Hash := h3_256.Sum(nil)
+
 		// rand reader is ignored within Sign method; crypto.Hash(0) is sanity check to
 		// make sure bytes_to_sign is not hashed already - ed25519.PrivateKey cannot sign hashed msg
-		signature, err := keyPair.PrivateKey.Sign(rand.Reader, bytes_to_sign[:], crypto.Hash(0))
+		signature, err := keyPair.PrivateKey.Sign(rand.Reader, h3_256Hash, crypto.Hash(0))
 
 		// https://tools.ietf.org/html/draft-thomas-crypto-conditions-03#section-8.5
 		ed25519Fulfillment, err := cryptoconditions.NewEd25519Sha256(keyPair.PublicKey, signature)
@@ -87,7 +92,7 @@ func (t *Transaction) Sign(keyPairs []*KeyPair) error {
 		if err != nil {
 			return err
 		}
-		ffSt := base58.Encode(ff)
+		ffSt := base64url.Encode(ff)
 		signedTx.Inputs[idx].Fulfillment = &ffSt
 	}
 	//Create ID of transaction (hash of body)
